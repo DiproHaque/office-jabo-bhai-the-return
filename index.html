@@ -4133,7 +4133,7 @@ function doAction(){if(qteAction())return;if(JR.act==='knock')knock();}
    Online board: a free Supabase table (fill BOARD_CFG — see the
    setup guide). Without it the board shows your own best runs.
    ============================================================ */
-const BOARD_CFG={url:'',key:''};   // ← Supabase project URL ও anon key এখানে বসাও
+const BOARD_CFG={url:'https://kaiosdcwonadpppwlbtk.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthaW9zZGN3b25hZHBwcHdsYnRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxOTc5ODcsImV4cCI6MjEwODc3Mzk4N30.cBis9D-4PDBwfIjwdJgziicQtPuZsso7GjGox5N8Og8'};   // ← Supabase project URL ও anon key এখানে বসাও
 const LEVELS=[0,150,400,750,1200,1800,2600,3600,5000,7000];
 const LV_TITLE=['নতুন যাত্রী','নিয়মিত যাত্রী','জ্যাম-যোদ্ধা','লোকাল বাসের ওস্তাদ','ঢাকার পথিক','সময়ের রাজা','ফুটপাতের ফেলুদা','ঢাকার কিংবদন্তি','অফিসের আইকন','অমর যাত্রী'];
 function profile(){const p=store('ojb4-profile')||{};return Object.assign({xp:0,runs:0,onTime:0,days:{},best:{},ach:{}},p);}
@@ -4146,7 +4146,7 @@ function streakOf(p){let s=0;for(let i=0;i<400;i++){const k=dayKeyOffset(-i);if(
 /* ---------- leaderboard ---------- */
 const BOARD={
   online(){return !!(BOARD_CFG.url&&BOARD_CFG.key);},
-  headers(){return{'apikey':BOARD_CFG.key,'Authorization':'Bearer '+BOARD_CFG.key,'Content-Type':'application/json'};},
+  headers(){const h={'apikey':BOARD_CFG.key,'Content-Type':'application/json'};/* legacy anon key is a JWT; new sb_publishable_ keys go in apikey only */if(!/^sb_/.test(BOARD_CFG.key))h.Authorization='Bearer '+BOARD_CFG.key;return h;},
   async submit(e){if(!this.online())return false;
     try{const r=await fetch(BOARD_CFG.url.replace(/\/$/,'')+'/rest/v1/scores',{method:'POST',headers:Object.assign(this.headers(),{'Prefer':'return=minimal'}),body:JSON.stringify(e)});return r.ok;}catch(err){return false;}},
   async top(day,track,limit){if(!this.online())return null;
