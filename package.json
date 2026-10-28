@@ -1,6 +1,6 @@
 {
   "name": "office-jabo-bhai",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "private": true,
   "description": "অফিস যাবো, ভাই! — ঢাকার সকালের অফিস/ভার্সিটি যাত্রার 3D ব্রাউজার গেম",
   "scripts": { "build": "python3 build.py && cp dist/index.html index.html" },

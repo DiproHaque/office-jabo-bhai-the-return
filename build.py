@@ -19,9 +19,13 @@ head=head.replace('/*@FONTS@*/','\n'.join(fonts))
 three=open(os.path.join(root,'node_modules/three/build/three.min.js')).read()
 bgu=open(os.path.join(root,'node_modules/three/examples/js/utils/BufferGeometryUtils.js')).read()
 js=''.join(open(f).read()+'\n' for f in sorted(glob.glob(os.path.join(src,'*.js'))))
+sfx={os.path.splitext(os.path.basename(f))[0]:base64.b64encode(open(f,'rb').read()).decode() for f in sorted(glob.glob(os.path.join(root,'sfx','*.mp3')))}
+js="'use strict';\n/* sound effects: CC0 (Kenney.nl, public-domain packs) */\nconst SFX_DATA="+__import__('json').dumps(sfx)+';\n'+js
 open(os.path.join(root,'game.js'),'w').write(js)
 body=head+'\n<script>LP(18,"শহরের নকশা আসছে…")</script>\n<script>\n'+three+'\n</script>\n<script>LP(42,"বাস-রিকশা রেডি হচ্ছে…")</script>\n<script>\n'+bgu+'\n</script>\n<script>\n'+js+'</script>\n'
 os.makedirs(os.path.join(root,'dist'),exist_ok=True)
+import shutil
+if os.path.isdir(os.path.join(root,'audio')):shutil.copytree(os.path.join(root,'audio'),os.path.join(root,'dist','audio'),dirs_exist_ok=True)
 open(os.path.join(root,'dist','artifact.html'),'w').write(body)
 title_end=body.index('</style>')+len('</style>')
 standalone=('<!doctype html>\n<html lang="bn">\n<head>\n<meta charset="utf-8">\n'

@@ -1,26 +1,27 @@
-# অফিস যাবো, ভাই! (V4)
+# অফিস যাবো, ভাই! (V5)
 
-ঢাকার সকালের যুদ্ধ: ১০টায় অফিস, ৮:৩০-এ ক্লাস। বাস, ডাবল ডেকার, রিকশা + মেট্রো, সিএনজি, বাইক, গাড়ি বা সাইকেলে সময়মতো পৌঁছাও।
-Three.js দিয়ে বানানো, একটা মাত্র HTML ফাইল। ফোন, ট্যাব, ল্যাপটপ, পিসি সবখানে চলে।
+ঢাকার সকালের রাশ: ১০টায় অফিস, ৮:৩০-এ ক্লাস। ৬টা বাসা, ১০টা অফিস/ক্যাম্পাস — আসল OpenStreetMap রাস্তা ধরে।
+বাস চালাও (যাত্রী তোলো, রাইভাল বাসকে হারাও), রিকশা চালিয়ে মেট্রো ধরো, দৌড়ে লাফিয়ে কয়েন কুড়াও, বাইক-গাড়ি-সিএনজি-সাইকেল।
+COMBO, Daily Missions, Garage, অনলাইন Leaderboard।
 
 ## খেলো
-`index.html` ব্রাউজারে খোলো, অথবা GitHub Pages / Cloudflare Pages-এ হোস্ট করো।
+`index.html` আর `audio/` ফোল্ডার একসাথে রাখো (মিউজিক `audio/` থেকে আসে)। GitHub Pages / Cloudflare Pages-এ সরাসরি চলে।
 
 ## সোর্স থেকে বানাও
 ```
 npm install
-npm run build      # src/ → dist/index.html → index.html
+npm run build      # src/ + sfx/ → dist/index.html → index.html
 ```
 
 | ফোল্ডার/ফাইল | কী আছে |
 |---|---|
-| `src/` | গেমের কোড (ক্রম অনুযায়ী জোড়া লাগে) |
-| `build.py` | ফন্ট আর three.js ইনলাইন করে একটা HTML বানায় |
-| `tests/` | Playwright দিয়ে অটো-টেস্ট |
+| `src/` | গেমের কোড (নাম অনুযায়ী ক্রমে জোড়া লাগে) |
+| `sfx/` | সাউন্ড ইফেক্ট (build-এ index.html-এর ভেতরে ঢুকে যায়) |
+| `audio/` | মিউজিক (আলাদা ফাইল, খেলার সময় লোড হয়) |
+| `tests/` | Playwright অটো-টেস্ট |
 | `leaderboard.sql` | Supabase লিডারবোর্ড টেবিল |
 
-## অনলাইন লিডারবোর্ড (ঐচ্ছিক)
-১. supabase.com-এ প্রজেক্ট খুলে `leaderboard.sql` চালাও
-২. `src/14_board.js`-এ `BOARD_CFG`-তে Project URL আর anon key বসাও, তারপর `npm run build`
-
-ম্যাপের তথ্য: © OpenStreetMap contributors
+## ক্রেডিট
+- রাস্তার তথ্য: © OpenStreetMap contributors (ODbL)
+- মিউজিক (CC0): Komiku, HinaCC0, Bauchamp (SoundSafari CC0 corpus), OpenLo-Fi
+- সাউন্ড ইফেক্ট (CC0): Kenney.nl, public-domain SFX packs
